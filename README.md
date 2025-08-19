@@ -3,16 +3,17 @@
 ## 📌 Descripción del Proyecto  
 Este proyecto tiene como objetivo analizar y predecir la **cancelación de clientes (churn)** en la empresa **Telecom X**.  
 
-En la **Parte 1**, se llevó a cabo un análisis exploratorio de datos (EDA) para comprender los principales factores asociados a la evasión de clientes, incluyendo el impacto de los contratos, cargos mensuales, soporte técnico y métodos de pago.  
+Se abordó en **dos fases principales**:  
 
-En la **Parte 2**, se desarrollaron **modelos predictivos de Machine Learning** para anticipar qué clientes tienen mayor probabilidad de abandonar la compañía, permitiendo así generar estrategias proactivas de retención.  
+- **[Parte 1 – Análisis Exploratorio de Datos (EDA)](https://github.com/Mj-Novoa/Challenge_TelecomX_PARTE1):** limpieza, tratamiento, análisis de correlaciones y exploración de variables clave que influyen en la cancelación de clientes.  
+- **Parte 2 – Modelado Predictivo:** construcción y evaluación de modelos de Machine Learning para predecir la probabilidad de churn, junto con un análisis estratégico de las variables más relevantes y recomendaciones de retención.  
 
 ---
 
 ## 🎯 Objetivos  
-- Identificar los principales factores que influyen en la cancelación de clientes.  
-- Construir modelos de predicción que permitan anticipar el churn.  
-- Generar insights estratégicos para la **toma de decisiones empresariales**.  
+- Identificar los factores que más influyen en la cancelación de clientes.  
+- Desarrollar modelos predictivos robustos que anticipen la probabilidad de churn.  
+- Generar **insights estratégicos** que permitan diseñar acciones de retención.  
 
 ---
 
@@ -21,9 +22,9 @@ En la **Parte 2**, se desarrollaron **modelos predictivos de Machine Learning** 
 - **Entorno:** Google Colab / Jupyter Notebook  
 - **Librerías Principales:**  
   - `pandas`, `numpy` → Procesamiento y tratamiento de datos  
-  - `matplotlib`, `seaborn` → Visualización de datos  
-  - `scikit-learn` → Modelado predictivo (ML)  
-  - `statsmodels` → Análisis estadístico  
+  - `matplotlib`, `seaborn` → Visualización  
+  - `scikit-learn` → Modelos de Machine Learning y evaluación  
+  - `imblearn` → Técnicas de balanceo de clases (SMOTE, undersampling, oversampling)  
 
 ---
 
@@ -31,12 +32,12 @@ En la **Parte 2**, se desarrollaron **modelos predictivos de Machine Learning** 
 
 TelecomX-Churn/
 │
-├── data/ # Archivos de datos (JSON / CSV)
-├── notebooks/ # Notebooks de análisis y modelado
-│ ├── 01_EDA.ipynb # Análisis exploratorio de datos (EDA)
-│ ├── 02_Modelado.ipynb # Modelado predictivo (Machine Learning)
+├── data/ # Archivos de datos originales y tratados
+├── notebooks/ # Jupyter Notebooks del análisis y modelado
+│ ├── 01_EDA.ipynb # Análisis exploratorio de datos
+│ ├── 02_Modelado.ipynb # Creación y evaluación de modelos ML
 │
-├── results/ # Resultados, gráficas e informes
+├── results/ # Resultados, gráficos y reportes
 │
 ├── README.md # Documentación del proyecto
 
@@ -46,37 +47,52 @@ TelecomX-Churn/
 ## 🚀 Flujo del Proyecto  
 
 ### 🔹 Parte 1 – Análisis Exploratorio  
-- Limpieza y tratamiento de datos.  
-- Análisis de contratos, soporte técnico, cargos mensuales, experiencia de pago y género.  
-- Identificación de patrones de fidelización vs evasión.  
+- **Extracción y limpieza de datos** desde archivos JSON.  
+- **Normalización de columnas** y creación de variables derivadas.  
+- **Análisis de correlación** mediante matrices y heatmaps.  
+- **Exploración dirigida**: Tenure vs Churn, Cargos vs Churn, Contratos vs Churn, Experiencia de pago y Soporte técnico.  
+- Identificación de factores clave como contratos de corto plazo, altos cargos mensuales, y uso de métodos de pago electrónicos.  
 
-### 🔹 Parte 2 – Predicción de Cancelación  
-- Preprocesamiento (tratamiento, codificación y normalización).  
-- Análisis de correlación y selección de variables.  
-- Entrenamiento de modelos de clasificación (ej. *Logistic Regression, Random Forest, XGBoost*).  
-- Evaluación de desempeño con métricas (Accuracy, Recall, Precision, F1, ROC-AUC).  
-- Interpretación de la importancia de variables.  
-- Generación de insights estratégicos para la retención.  
+### 🔹 Parte 2 – Modelado Predictivo  
+- **Balanceo de clases** (undersampling, oversampling, SMOTE).  
+- **Separación de datos** en train/test (70/30, estratificada).  
+- Creación de **dos modelos base**:  
+  - Regresión Logística (con normalización).  
+  - Random Forest (sin normalización).  
+- **Evaluación de desempeño** con Accuracy, Precision, Recall, F1-score y Matriz de Confusión.  
+- **Análisis de importancia de variables**: coeficientes (Logística) e importancias de features (Random Forest).  
 
 ---
 
-## 📊 Resultados Destacados  
-- Los contratos de mayor duración (**1 año y 2 años**) presentan mayor fidelización.  
-- La **calidad del soporte técnico** es un factor crítico en la retención.  
-- Los clientes con **cargos mensuales elevados** tienen mayor propensión al churn.  
-- Los métodos de pago automáticos (**tarjeta de crédito y transferencias bancarias**) se asocian con mayor lealtad.  
-- El género no muestra una diferencia significativa en la tasa de cancelación.  
+## 📊 Resultados Clave  
+
+- **Regresión Logística** obtuvo mejor desempeño que Random Forest:  
+  - Accuracy: 0.80 vs 0.79  
+  - Recall: 0.54 vs 0.50  
+  - F1-score: 0.59 vs 0.56  
+
+- **Factores principales asociados al churn:**  
+  - **Tenure (antigüedad):** clientes nuevos tienen mayor riesgo.  
+  - **Tipo de contrato:** *month-to-month* es el de mayor evasión; contratos anuales y bianuales protegen contra la cancelación.  
+  - **Cargos mensuales y totales:** clientes con cargos acumulados altos tienden a cancelar.  
+  - **Internet Fibra Óptica y Streaming:** asociados a mayor churn.  
+  - **Método de pago electrónico:** vinculado con mayor probabilidad de cancelación.  
 
 ---
 
 ## 📌 Conclusiones Estratégicas  
-Los hallazgos y modelos desarrollados permiten a **Telecom X**:  
-- Anticipar con mayor precisión la cancelación de clientes.  
-- Focalizar esfuerzos de retención en segmentos críticos (clientes de alto gasto, usuarios sin soporte técnico, contratos de corto plazo).  
-- Implementar estrategias diferenciadas de fidelización para maximizar el valor de la base de clientes.  
+
+- **Migración de contratos:** incentivar planes anuales y bianuales mediante descuentos o beneficios adicionales.  
+- **Segmentación de riesgo:** enfocar campañas en clientes con bajo tenure y altos cargos acumulados.  
+- **Optimización de servicios de internet (fibra óptica):** revisar la experiencia de usuario y percepción de calidad.  
+- **Experiencia de pago:** promover medios automáticos (tarjeta de crédito, transferencias bancarias) para reducir fricciones.  
+- **Fortalecer servicios adicionales:** mejorar soporte técnico y paquetes de entretenimiento para incrementar la satisfacción.  
 
 ---
 
+## 👨‍💻 Autor  
+Proyecto desarrollado por **[MJ.NOVOA]**  
+🔗 GitHub: [https://github.com/tu-usuario](https://github.com/tu-usuario)  
 
 
 
