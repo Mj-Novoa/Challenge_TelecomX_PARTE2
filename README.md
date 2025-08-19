@@ -92,4 +92,4 @@ TelecomX-Churn/
 
 ## 👨‍💻 Autor  
 Proyecto desarrollado por **[MJ.NOVOA]**  
-🔗 GitHub: [](https://github.com/Mj-Novoa)  
+🔗 GitHub: [https://github.com/Mj-Novoa](https://github.com/Mj-Novoa)  
